@@ -8,8 +8,9 @@ file_location = script_location / 'Day7Input.txt'
 file = file_location.open()
 
 input_list = file.read()
+print(input_list)
 
-# *******************************************************************
+# ************************* RAW DATA PARSING **********************************
 
 def data_parser(raw_list):
 	#takes in all of the data, splits each line into lists
@@ -121,6 +122,19 @@ print(count(parsed_rules))
 
 
 # TESTING
+
+# TEST DATA:
+
+# light red bags contain 1 bright white bag, 2 muted yellow bags.
+# dark orange bags contain 3 bright white bags, 4 muted yellow bags.
+# bright white bags contain 1 shiny gold bag.
+# muted yellow bags contain 2 shiny gold bags, 9 faded blue bags.
+# shiny gold bags contain 1 dark olive bag, 2 vibrant plum bags.
+# dark olive bags contain 3 faded blue bags, 4 dotted black bags.
+# vibrant plum bags contain 5 faded blue bags, 6 dotted black bags.
+# faded blue bags contain no other bags.
+# dotted black bags contain no other bags.
+# should get that there are 4 bags colors that work. 
 
 # test_rule1 = parsed_list[0]
 # test_rule2 = parsed_list[1]
