@@ -8,7 +8,7 @@ file_location = script_location / 'Day7Input.txt'
 file = file_location.open()
 
 input_list = file.read()
-print(input_list)
+# print(input_list)
 
 # ************************* RAW DATA PARSING **********************************
 
