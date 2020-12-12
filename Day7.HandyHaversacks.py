@@ -14,26 +14,24 @@ input_list = file.read()
 
 def data_parser(raw_list):
 	#takes in all of the data, splits each line into lists
-	raw_list = input_list.split("\n")
-	parsed_list = []
-	for i in range(len(raw_list)):
-		parsed_line = raw_list[i].replace("\n", " ").split()
-		parsed_list.append(parsed_line)
-	return parsed_list
+	return [line.split() for line in raw_list.splitlines()]
 
 
 def get_sub_bags(rule):
-	# input needs to be after the "contains" of a rule, so rule[4:]
 	# given a rule, returns the list of list of bags it can contain
-	sub_bags = []
-	sub_bag_types = int(len(rule) / 4)
-	for i in range(sub_bag_types):
-			new_sub_bag = rule[1:3]
+	sub_bags = rule[4:]
+	sub_bag_types = int(int(len(rule[4:])) / 4)
+	# print(sub_bag_types) 
+	# print('here')
+	sub_bag_count = 0
+	for i in range(sub_bag_types - 1):
+			new_sub_bag = rule[4:]
 			sub_bags.append([new_sub_bag])
 			if rule[4:]:
 				rule = rule[4:]
 			else: 
 				break
+	# print(sub_bag_count)
 	return sub_bags
 
 
@@ -41,13 +39,11 @@ def rule_parser(rule):
 	# takes in one rule (a list) and returns:
 	# first element is the bag to which the rule pertains
 	# second element is a list containing [number, bag type]
-	# ex. [vibrant lime, [['faded', 'gold'], ['plaid', 'aqua'], ['clear' 'black']]
+	# ex. [vibrant lime, [['1', [faded', 'gold']], ['3', ['plaid', 'aqua']], ['2', ['clear' 'black']]]
 	main_bag_type = rule[0:2]
 	sub_bags = []
-	remaining_bags = get_sub_bags(rule[4:])
-	for i in range(len(remaining_bags)):
-		sub_bags += remaining_bags[i]
-	return [main_bag_type, sub_bags]
+	remaining_bags = get_sub_bags(rule)
+	return [main_bag_type, remaining_bags]
 
 
 def parse_all(parsed_list):
@@ -66,20 +62,8 @@ def parse_all(parsed_list):
 
 def can_directly_hold(rule):
 	# tells you if this color bag can directly hold a shiny gold bag
-	# input needs to be rule[0], rule[1:]
-	main_bag = rule[0]
-	sub_bags = rule[1:]
-	if sub_bags == [[]]:
-		return False
-	for bag_type in sub_bags:
-		if len(sub_bags) == 0:
-			return False
-		if bag_type[0] == ['shiny', 'gold']:
-			return True
-		else:
-			return False
-
-
+	return ['shiny', 'gold'] in rule[1]
+	
 def rule_finder(bag_type, parsed_data):
 	# given a bag type, will search through all of the parsed data
 	# and return a rule in which that bag_type is the main_bag
@@ -117,9 +101,10 @@ def count(input_data):
 # ACTUAL FUNCTION CALLS
 
 parsed_list = data_parser(input_list)
-parsed_rules = parse_all(parsed_list)
-print(count(parsed_rules))
-
+# parsed_rules = parse_all(parsed_list)
+# print(parsed_rules[1])
+# print(can_indirectly_hold(parsed_rules[1], parsed_rules))
+# print(count(parsed_rules))
 
 # TESTING
 
@@ -136,14 +121,17 @@ print(count(parsed_rules))
 # dotted black bags contain no other bags.
 # should get that there are 4 bags colors that work. 
 
-# test_rule1 = parsed_list[0]
+test_rule2 = parsed_list[1]
+print(test_rule2)
 # test_rule2 = parsed_list[1]
 # test_rule3 = parsed_list[2]
 # test_rule4 = parsed_list[7]
-# parsed_test_rule1 = rule_parser(test_rule1)
+parsed_test_rule2 = rule_parser(test_rule2)
 # parsed_test_rule2 = rule_parser(test_rule2)
 # parsed_test_rule3 = rule_parser(test_rule3)
 # parsed_test_rule4 = rule_parser(test_rule4)
+print(parsed_test_rule2)
+# print(get_sub_bags(parsed_test_rule1))
 # print(parsed_test_rule4)
 # print(can_directly_hold(parsed_test_rule4))
 # print(can_indirectly_hold(parsed_test_rule4, parsed_rules))
