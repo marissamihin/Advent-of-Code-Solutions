@@ -64,7 +64,7 @@ def bag_count(bag, main_dict):
 	return count
 
 
-# Error: unhashable type: list
+#no errors! but I'm getting 0 for some reason?
 
 parsed_data = data_parser(input_list)
 print(parsed_data[0])
