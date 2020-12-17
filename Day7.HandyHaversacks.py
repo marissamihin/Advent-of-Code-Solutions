@@ -50,19 +50,29 @@ def bag_count(bag, main_dict):
 	# print(bag, 'this is the bag')
 	sub_bags = main_dict[bag]
 	if len(sub_bags) < 1:
-		print('end of this bag')
-		return 1	
-	print(sub_bags)
+		print('end of', bag)
+		return 1
+	print('sub_bags for', bag, sub_bags)
 	for i in range(0, len(sub_bags)):
 		sub_bag = sub_bags[i]
+		print(i, sub_bag)
+		# count += int(sub_bag[0])
+		# ^ when I add this, the function OVER counts????
+		# ^ but it's exactly what I'm missing??
 		count += int(sub_bag[0])*bag_count(tuple(sub_bag[1:]), main_dict)
+	print(count, 'for', bag)
 	return count
 
 
-#no errors! but I'm getting 0 for some reason?
+# current problem: bag_count is undercounting because
+# for each bag, it's missing the IMMEDIATE number of sub_bags
+# example: ('striped', 'chartreuse') [['4', 'posh', 'black'], ['1', 'vibrant', 'cyan']]
+# it counts the number of bags contained in 4 posh black bags and 1 vibrant cyan bag
+# but it DOESN'T count the 4 posh black bags and 1 vibrant cyan bag THEMSELVES
+# attempts to correct this lead to SERIOUS overcounting- unclear why
+
 
 parsed_data = data_parser(input_list)
-print(parsed_data[0])
 dictionary_data = Convert_string_to_dictionary(parsed_data)
 shiny_gold = ('shiny', 'gold')
 print(shiny_gold)
