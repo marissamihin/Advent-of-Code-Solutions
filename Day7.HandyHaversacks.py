@@ -4,9 +4,19 @@ import string
 input_list = Path("Day7Input.txt").resolve().read_text()
 # thanks, charlie! 
 
-# ************************* RAW DATA PARSING **********************************
+# the goal of this exercise is to find out:
+# how MANY bags each "shiny gold" bag must hold
+# test data looks like:
 
-# starting over with dictionaries....
+# shiny gold bags contain 2 dark red bags.
+# dark red bags contain 2 dark orange bags.
+# dark orange bags contain 2 dark yellow bags.
+# dark yellow bags contain 2 dark green bags.
+# dark green bags contain 2 dark blue bags.
+# dark blue bags contain 2 dark violet bags.
+# dark violet bags contain no other bags.
+
+# under these rules, shiny gold bags must contain 126 bags total.
 
 def data_parser(raw_list):
 	#takes in all of the data, splits each line into lists
