@@ -49,18 +49,13 @@ def bag_count(bag, main_dict):
 	count = 0
 	# print(bag, 'this is the bag')
 	sub_bags = main_dict[bag]
+	if len(sub_bags) < 1:
+		print('end of this bag')
+		return 1	
 	print(sub_bags)
 	for i in range(0, len(sub_bags)):
 		sub_bag = sub_bags[i]
-		print(sub_bag)
-		print(sub_bag[0])
-		print(tuple(sub_bag[1:]))
-		print(main_dict[tuple(sub_bag[1:])])
-		print(sub_bag, 'this is the sub_bag')
-		if 'no' in sub_bag:
-			return 1
-		else:
-			count += int(sub_bag[0])*bag_count(tuple(sub_bag[1:]), main_dict) 
+		count += int(sub_bag[0])*bag_count(tuple(sub_bag[1:]), main_dict)
 	return count
 
 
