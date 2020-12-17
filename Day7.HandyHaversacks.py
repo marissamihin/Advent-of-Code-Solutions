@@ -49,13 +49,18 @@ def bag_count(bag, main_dict):
 	count = 0
 	# print(bag, 'this is the bag')
 	sub_bags = main_dict[bag]
+	print(sub_bags)
 	for i in range(0, len(sub_bags)):
-		sub_bag = main_dict[bag[((i*4) + 1):((i*4)+3)]]
-		# print(sub_bag, 'this is the sub_bag')
+		sub_bag = sub_bags[i]
+		print(sub_bag)
+		print(sub_bag[0])
+		print(tuple(sub_bag[1:]))
+		print(main_dict[tuple(sub_bag[1:])])
+		print(sub_bag, 'this is the sub_bag')
 		if 'no' in sub_bag:
 			return 1
 		else:
-			count += int(sub_bag[(i)*4])*bag_count(sub_bag[i], main_dict) 
+			count += int(sub_bag[0])*bag_count(tuple(sub_bag[1:]), main_dict) 
 	return count
 
 
@@ -64,6 +69,6 @@ def bag_count(bag, main_dict):
 parsed_data = data_parser(input_list)
 print(parsed_data[0])
 dictionary_data = Convert_string_to_dictionary(parsed_data)
-shiny_gold = dictionary_data[('shiny', 'gold')]
+shiny_gold = ('shiny', 'gold')
 print(shiny_gold)
 print(bag_count(shiny_gold, dictionary_data))
