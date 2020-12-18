@@ -3,6 +3,7 @@ import string
 
 input_list = Path("Day7Input.txt").resolve().read_text()
 # thanks, charlie! 
+# IT WORKS! thanks absolute-minimum!
 
 # the goal of this exercise is to find out:
 # how MANY bags each "shiny gold" bag must hold
@@ -53,31 +54,17 @@ def convert_string_to_dictionary(lst):
 
 def bag_count(bag, main_dict):
 	count = 0
-	# print(bag, 'this is the bag')
 	sub_bags = main_dict[bag]
 	if len(sub_bags) < 1:
-		# print('end of', bag)
 		return 1
-	# print('sub_bags for', bag, sub_bags)
+	count += 1
 	for bag in sub_bags:
-		# count += int(bag[0])
-		# ^ when I add this, the function OVER counts????
-		# ^ but it's exactly what I'm missing??
+		print(bag[1:], 'bags contain', bag_count(tuple(bag[1:]), main_dict), 'bags.')
 		count += int(bag[0])*bag_count(tuple(bag[1:]), main_dict)
-	# print(count, 'for', bag)
 	return count
-
-
-# current problem: bag_count is undercounting because
-# for each bag, it's missing the IMMEDIATE number of sub_bags
-# example: ('striped', 'chartreuse') [['4', 'posh', 'black'], ['1', 'vibrant', 'cyan']]
-# it counts the number of bags contained in 4 posh black bags and 1 vibrant cyan bag
-# but it DOESN'T count the 4 posh black bags and 1 vibrant cyan bag THEMSELVES
-# attempts to correct this lead to SERIOUS overcounting- unclear why
-
 
 parsed_data = data_parser(input_list)
 dictionary_data = convert_string_to_dictionary(parsed_data)
 shiny_gold = ('shiny', 'gold')
 print(shiny_gold)
-print(bag_count(shiny_gold, dictionary_data))
+print(bag_count(shiny_gold, dictionary_data) - 1)
