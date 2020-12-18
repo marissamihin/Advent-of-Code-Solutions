@@ -32,7 +32,7 @@ def data_parser(raw_list):
 	return split_lines
 
 
-def Convert_string_to_dictionary(lst):
+def convert_string_to_dictionary(lst):
 	main_dict = {}
 	for line in lst:
 		sub_bag_list = line[2:]
@@ -50,17 +50,15 @@ def bag_count(bag, main_dict):
 	# print(bag, 'this is the bag')
 	sub_bags = main_dict[bag]
 	if len(sub_bags) < 1:
-		print('end of', bag)
+		# print('end of', bag)
 		return 1
-	print('sub_bags for', bag, sub_bags)
-	for i in range(0, len(sub_bags)):
-		sub_bag = sub_bags[i]
-		print(i, sub_bag)
-		# count += int(sub_bag[0])
+	# print('sub_bags for', bag, sub_bags)
+	for bag in sub_bags:
+		# count += int(bag[0])
 		# ^ when I add this, the function OVER counts????
 		# ^ but it's exactly what I'm missing??
-		count += int(sub_bag[0])*bag_count(tuple(sub_bag[1:]), main_dict)
-	print(count, 'for', bag)
+		count += int(bag[0])*bag_count(tuple(bag[1:]), main_dict)
+	# print(count, 'for', bag)
 	return count
 
 
@@ -73,7 +71,7 @@ def bag_count(bag, main_dict):
 
 
 parsed_data = data_parser(input_list)
-dictionary_data = Convert_string_to_dictionary(parsed_data)
+dictionary_data = convert_string_to_dictionary(parsed_data)
 shiny_gold = ('shiny', 'gold')
 print(shiny_gold)
 print(bag_count(shiny_gold, dictionary_data))
