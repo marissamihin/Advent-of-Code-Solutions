@@ -8,15 +8,19 @@ input_list = Path("Day7Input.txt").resolve().read_text()
 # how MANY bags each "shiny gold" bag must hold
 # test data looks like:
 
-# shiny gold bags contain 2 dark red bags.
-# dark red bags contain 2 dark orange bags.
-# dark orange bags contain 2 dark yellow bags.
-# dark yellow bags contain 2 dark green bags.
-# dark green bags contain 2 dark blue bags.
-# dark blue bags contain 2 dark violet bags.
-# dark violet bags contain no other bags.
+# light red bags contain 1 bright white bag, 2 muted yellow bags.
+# dark orange bags contain 3 bright white bags, 4 muted yellow bags.
+# bright white bags contain 1 shiny gold bag.
+# muted yellow bags contain 2 shiny gold bags, 9 faded blue bags.
+# shiny gold bags contain 1 dark olive bag, 2 vibrant plum bags.
+# dark olive bags contain 3 faded blue bags, 4 dotted black bags.
+# vibrant plum bags contain 5 faded blue bags, 6 dotted black bags.
+# faded blue bags contain no other bags.
+# dotted black bags contain no other bags.
 
-# under these rules, shiny gold bags must contain 126 bags total.
+# under these rules, shiny gold bags must contain 32 bags total.
+
+# BEGIN PARSING
 
 def data_parser(raw_list):
 	split_lines = [line.split() for line in raw_list.splitlines()]
@@ -44,6 +48,8 @@ def convert_string_to_dictionary(lst):
 		main_dict.update(res_dct)
 	return main_dict
 
+
+# END PARSING
 
 def bag_count(bag, main_dict):
 	count = 0
