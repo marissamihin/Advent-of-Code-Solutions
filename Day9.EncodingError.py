@@ -8,36 +8,44 @@ def data_parser(raw_list):
 	return split_lines
 
 
-def make_master(data):
-	for line in data:
-		lindex = data.index(line)
-		line.append(lindex)
-	return data
+def sum_search(search_number, main_list):
+	start_interval = main_list.index(search_number) - 25
+	end_interval = main_list.index(search_number)
+	search_interval = main_list[start_interval:end_interval]
+	for first_number in search_interval:
+		for second_number in search_interval:
+			if not(second_number == first_number):
+				if (int(first_number[0]) + int(second_number[0]) == int(search_number[0])):
+					return True
+	print(search_number, 'is not valid!')
+	return False
 
 
-def sum_search(start_index, line, main_list):
-	# given a line, returns "True" if there exists two lines in the main_list that sum to it
-	stop = int(line[0])
-	search_index = 0
-	for index in range(stop):
-		if int(main_list[search_index][1]) + int(main_list[index][1]) == stop:
-			return True
-	search_index += 1
-	if search_index == stop:
-		print(main_list[search_index], 'is invalid!')
-		return False
-	else:
-		sum_search(search_index, line, main_list)
+def find_interval(search_number, main_list):
+	for bottom in main_list:
+		for top in main_list:
+			bottom_index = main_list.index(bottom)
+			top_index = main_list.index(top)
+			interval = (main_list[bottom_index:top_index+1])
+			interval_sum = sum(interval)
+			if interval_sum == search_number:
+				return min(interval) + max(interval)
 
 
-def find_valid(main_list):
-	preamble = main_list[0:25]
-	for index in range(25, len(main_list)):
-		line = main_list[index]
-		if not(sum_search(index, line, main_list)):
-			print(main_list[search_index], 'is invalid!')
 
 
 parsed_data = data_parser(input_list)
-master_list = make_master(parsed_data)
-find_valid(master_list)
+preamble = parsed_data[0:25]
+postamble = parsed_data[25:]
+for number in postamble:
+	sum_search(number, parsed_data)
+
+numbers = [int(x[0]) for x in parsed_data]
+#FINALLY realized I could use list comprehension to turn the elements parsed_data into
+#numbers instead of strings. but I already wrote sum_search using the string version of parsed_data
+#and I'm feeling too lazy to go back and change it
+
+#but hey! the code works!
+invalid_number = 400480901
+search_list = numbers[:numbers.index(invalid_number)]
+print(find_interval(invalid_number, search_list))
